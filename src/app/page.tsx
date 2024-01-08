@@ -1,3 +1,9 @@
+import Banner from '../components/sections/banner';
+
 export default function Home() {
-  return <main>Helo World!</main>;
+  return (
+    <main>
+      <Banner />
+    </main>
+  );
 }
