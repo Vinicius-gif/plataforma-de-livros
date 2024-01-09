@@ -18,15 +18,13 @@ const Header = () => {
         </Link>
         <div className="flex items-center gap-5 [&>a]:text-lg [&>a]:font-semibold">
           <Link href="#">Home</Link>
-          <Link href="#">
-            <Button
-              variant="outlined"
-              href="#outlined-buttons"
-              className="border-2 text-lg font-semibold"
-            >
-              Login
-            </Button>
-          </Link>
+          <Button
+            variant="outlined"
+            href="#outlined-buttons"
+            className="border-2 text-lg font-semibold"
+          >
+            Login
+          </Button>
         </div>
       </nav>
     </header>

@@ -1,10 +1,10 @@
-import Image from 'next/image';
+/* eslint-disable @next/next/no-img-element */
 import React from 'react';
 
 const Banner = () => {
   return (
     <section>
-      <Image src="/books.jpeg" alt="books" width={500} height={500} />
+      <img src="/books.jpeg" alt="books" className="w-full h-80" />
       <h1>Encontre o livro de sua preferência</h1>
       <p>
         Explore um mundo de histórias e conhecimento no nosso site de livros.
