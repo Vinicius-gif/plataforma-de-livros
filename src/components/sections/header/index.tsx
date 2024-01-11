@@ -12,12 +12,13 @@ const Header = () => {
           <Image
             src="/coffe-book.png"
             alt="coffe book"
-            width={140}
-            height={140}
+            width={110}
+            height={110}
           />
         </Link>
         <div className="flex items-center gap-5 [&>a]:text-lg [&>a]:font-semibold">
-          <Link href="#">Home</Link>
+          <Link href="/">Home</Link>
+          <Link href="/about">About</Link>
           <Button
             variant="outlined"
             href="#outlined-buttons"

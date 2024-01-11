@@ -3,7 +3,7 @@ import { FaSearch } from 'react-icons/fa';
 
 const SearchForm = () => {
   return (
-    <div className="max-w-md mx-auto p-4">
+    <div className="lg:w-1/3 mx-auto p-4">
       <div className="bg-white rounded-lg overflow-hidden">
         <div className="flex items-center">
           <input

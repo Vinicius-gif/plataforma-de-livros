@@ -11,7 +11,10 @@ const Banner = () => {
     >
       <div
         className="absolute inset-0 flex flex-col justify-center items-center text-white text-center"
-        style={{ background: 'rgba(251, 191, 36, 0.2)' }}
+        style={{
+          background:
+            'linear-gradient(to top, rgba(251, 191, 36, 0.2), transparent)'
+        }}
       >
         <h1 className="text-4xl font-bold mb-4">
           Encontre o livro de sua preferência
