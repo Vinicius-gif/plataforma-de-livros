@@ -5,7 +5,7 @@ interface Props {
   image: string;
   title: string;
   author: string;
-  totalEditions: string;
+  totalEditions: number;
   firstEditionYear: string;
 }
 
