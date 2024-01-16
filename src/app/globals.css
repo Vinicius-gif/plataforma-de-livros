@@ -11,3 +11,33 @@ body {
   padding: 0;
   box-sizing: border-box;
 }
+
+/* Google and Safari scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 100px;
+}
+
+::-webkit-scrollbar-track {
+  visibility: hidden;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #242323;
+  border-radius: 5px;
+}
+
+/* Firefox scrollbar */
+::-moz-scrollbar {
+  width: 10px;
+  height: 100px;
+}
+
+::-moz-scrollbar-track {
+  visibility: hidden;
+}
+
+::-moz-scrollbar-thumb {
+  background: #242323;
+  border-radius: 5px;
+}
