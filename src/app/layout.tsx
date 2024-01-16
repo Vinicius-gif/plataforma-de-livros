@@ -3,6 +3,7 @@ import { Roboto } from 'next/font/google';
 
 import './globals.css';
 import Header from '../components/sections/header';
+import { SearchBookProvider } from '../contexts/SearchBookContext';
 
 const roboto = Roboto({
   weight: ['400', '700'],
@@ -24,8 +25,10 @@ export default function RootLayout({
   return (
     <html lang="en" data-lt-installed={true}>
       <body className={roboto.className}>
-        <Header />
-        {children}
+        <SearchBookProvider>
+          <Header />
+          {children}
+        </SearchBookProvider>
       </body>
     </html>
   );
