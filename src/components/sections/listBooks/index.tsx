@@ -14,12 +14,12 @@ const ListBooks = () => {
 
   useEffect(() => {
     const fetchBooks = async () => {
-      const books = await searchBooks(searchInputValue);
+      const books = await searchBooks('harry');
       setDataBooks(books);
     };
 
     fetchBooks();
-  }, [searchInputValue]);
+  }, []);
 
   return (
     <section>

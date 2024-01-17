@@ -8,10 +8,6 @@ import { useSearchBookContext } from '../../../contexts/SearchBookContext';
 const SearchForm = () => {
   const { searchInputValue, setSearchInputValue } = useSearchBookContext();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchInputValue(e.target.value);
-  };
-
   return (
     <div className="lg:w-1/3 mx-auto p-4">
       <div className="bg-white rounded-lg overflow-hidden">
@@ -23,9 +19,8 @@ const SearchForm = () => {
             value={searchInputValue}
           />
           <button
-            type="submit"
             className="bg-amber-600 text-white p-3 rounded-r-md hover:bg-amber-700"
-            onClick={() => handleChange}
+            onClick={() => setSearchInputValue(searchInputValue)}
           >
             <FaSearch size={24} />
           </button>
