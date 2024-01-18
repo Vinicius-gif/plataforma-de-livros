@@ -14,7 +14,7 @@ const ListBooks = () => {
 
   useEffect(() => {
     const fetchBooks = async () => {
-      const books = await searchBooks('harry');
+      const books = await searchBooks('harry potter');
       setDataBooks(books);
     };
 
