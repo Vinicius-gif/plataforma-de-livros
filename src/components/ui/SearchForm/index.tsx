@@ -1,15 +1,24 @@
 'use client';
 
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { FaSearch } from 'react-icons/fa';
 
-import { useSearchBookContext } from '../../../contexts/SearchBookContext';
+import { SearchBookContext } from '../../../contexts/SearchBookContext';
 
 const SearchForm = () => {
-  const { searchInputValue, setSearchInputValue } = useSearchBookContext();
+  const { setSearchInputValue } = useContext(SearchBookContext);
+
+  // Estado local para armazenar temporariamente o valor do input
+  const [localInputValue, setLocalInputValue] = useState('');
 
   const handleInputChange = (event) => {
-    setSearchInputValue(event.target.value);
+    // Atualiza o estado local
+    setLocalInputValue(event.target.value);
+  };
+
+  const handleSearchButtonClick = () => {
+    // Atualiza o estado global apenas quando o botão é clicado
+    setSearchInputValue(localInputValue);
   };
 
   return (
@@ -18,14 +27,14 @@ const SearchForm = () => {
         <div className="flex items-center">
           <input
             type="text"
-            className="w-full p-3 borde text-gray-800 rounded-l-md"
+            className="w-full p-3 border text-gray-800 rounded-l-md"
             placeholder="As Aventuras de..."
-            value={searchInputValue}
+            value={localInputValue}
             onChange={handleInputChange}
           />
           <button
             className="bg-amber-600 text-white p-3 rounded-r-md hover:bg-amber-700"
-            onClick={() => setSearchInputValue(searchInputValue)}
+            onClick={handleSearchButtonClick}
           >
             <FaSearch size={24} />
           </button>
