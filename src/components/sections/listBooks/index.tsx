@@ -1,26 +1,12 @@
 'use client';
 
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 
-import { Book } from '../../../@types/book';
-import { searchBooks } from '../../../api/booksApi';
-import { SearchBookContext } from '../../../contexts/SearchBookContext';
+import { BookContext } from '../../../contexts/BookContext';
 import BookCard from '../../ui/BookCard';
 
 const ListBooks = () => {
-  const [dataBooks, setDataBooks] = useState<Book[]>([]);
-
-  const { searchInputValue, setSearchInputValue } =
-    useContext(SearchBookContext);
-
-  useEffect(() => {
-    const fetchBooks = async () => {
-      const books = await searchBooks(searchInputValue);
-      setDataBooks(books);
-    };
-
-    fetchBooks();
-  }, [setDataBooks, setSearchInputValue, searchInputValue]);
+  const { dataBooks } = useContext(BookContext);
 
   return (
     <section>
