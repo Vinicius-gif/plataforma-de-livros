@@ -7,6 +7,8 @@ import { Book } from '../@types/BookContextTypes';
 interface BooksContextProps {
   dataBooks: Book[];
   setDataBooks: Dispatch<SetStateAction<Book[]>>;
+  isLoading: boolean;
+  setIsLoading: Dispatch<SetStateAction<boolean>>;
 }
 
 interface ChildrenProp {
@@ -15,15 +17,20 @@ interface ChildrenProp {
 
 export const BookContext = createContext<BooksContextProps>({
   dataBooks: [],
-  setDataBooks: () => {}
+  setDataBooks: () => {},
+  isLoading: false,
+  setIsLoading: () => {}
 });
 
 export const BookContextProvider = ({ children }: ChildrenProp) => {
   const [dataBooks, setDataBooks] = useState<Book[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const value: BooksContextProps = {
     dataBooks,
-    setDataBooks
+    setDataBooks,
+    isLoading,
+    setIsLoading
   };
 
   return <BookContext.Provider value={value}>{children}</BookContext.Provider>;

@@ -6,11 +6,13 @@ import { BookContext } from '../../../contexts/BookContext';
 import BookCard from '../../ui/BookCard';
 
 const ListBooks = () => {
-  const { dataBooks } = useContext(BookContext);
+  const { dataBooks, isLoading } = useContext(BookContext);
 
   return (
     <section>
-      {dataBooks.length > 0 &&
+      {isLoading ? (
+        <p>Carregando...</p>
+      ) : dataBooks.length > 0 ? (
         dataBooks.map((book) => (
           <BookCard
             key={book.id}
@@ -20,7 +22,10 @@ const ListBooks = () => {
             image={book.volumeInfo.imageLinks?.thumbnail}
             totalEditions={book.volumeInfo?.pageCount}
           />
-        ))}
+        ))
+      ) : (
+        <p>Nenhum livro encontrado.</p>
+      )}
     </section>
   );
 };
