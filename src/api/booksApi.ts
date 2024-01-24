@@ -4,7 +4,7 @@ require('dotenv').config();
 
 const apiKey = 'AIzaSyBAX8BcfKriCQ7sTkAwXAGCn5VfpsEsDXM';
 
-export const searchBooks = async (searchTerm) => {
+export const searchBooks = async (searchTerm: string) => {
   const apiUrl = `https://www.googleapis.com/books/v1/volumes?q=${searchTerm}&key=${apiKey}`;
 
   try {
