@@ -50,12 +50,12 @@ const SearchForm = () => {
   };
 
   return (
-    <div className="lg:w-1/3 mx-auto p-4">
+    <div className="lg:w-1/3 mx-auto p-4 border-none">
       <div className="bg-white rounded-lg overflow-hidden">
         <form onSubmit={handleSubmit} className="flex items-center">
           <input
             type="text"
-            className="w-full p-3 border text-gray-800 rounded-l-md"
+            className="w-full p-3 text-gray-800 rounded-l-md"
             placeholder="As Aventuras de..."
             value={inputSearch}
             onChange={handleInputChange}
