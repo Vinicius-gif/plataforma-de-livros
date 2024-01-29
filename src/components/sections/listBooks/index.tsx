@@ -4,6 +4,7 @@ import React, { useContext } from 'react';
 
 import { BookContext } from '../../../contexts/BookContext';
 import BookCard from '../../ui/BookCard';
+import LoadingSkeleton from '../../ui/LoadingSkeleton';
 
 const ListBooks = () => {
   const { dataBooks, isLoading } = useContext(BookContext);
@@ -11,8 +12,10 @@ const ListBooks = () => {
   return (
     <section className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
       {isLoading ? (
-        <p>Carregando...</p>
-      ) : dataBooks.length > 0 ? (
+        Array.from({ length: 10 }).map((_, index) => (
+          <LoadingSkeleton key={index} />
+        ))
+      ) : dataBooks?.length ? (
         dataBooks.map((book) => (
           <BookCard
             key={book.id}
@@ -21,6 +24,7 @@ const ListBooks = () => {
             firstEditionYear={book.volumeInfo?.publisher}
             image={book.volumeInfo.imageLinks?.thumbnail}
             totalEditions={book.volumeInfo?.pageCount}
+            description={book.volumeInfo?.description}
           />
         ))
       ) : (
