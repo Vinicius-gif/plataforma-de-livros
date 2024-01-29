@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-var-requires */
 import axios from 'axios';
 require('dotenv').config();
@@ -11,7 +12,7 @@ export const searchBooks = async (searchTerm: string) => {
     const response = await axios.get(apiUrl);
     const books = response.data.items;
     return books;
-  } catch (error) {
+  } catch (error: any) {
     console.error('Erro ao buscar livros:', error.message);
     throw error;
   }
