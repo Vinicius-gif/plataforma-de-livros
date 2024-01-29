@@ -33,7 +33,10 @@ const SearchForm = () => {
     if (inputSearch.trim() !== '') {
       handleSearch();
     } else {
-      event.currentTarget.querySelector('input').blur();
+      const inputElement = event.currentTarget.querySelector('input');
+      if (inputElement) {
+        inputElement.blur();
+      }
     }
   };
 
