@@ -3,7 +3,7 @@
 import axios from 'axios';
 require('dotenv').config();
 
-const apiKey = 'AIzaSyBAX8BcfKriCQ7sTkAwXAGCn5VfpsEsDXM';
+const apiKey = process.env.NEXT_PUBLIC_KEY_GOOGLE_BOOKS;
 
 export const searchBooks = async (searchTerm: string) => {
   const apiUrl = `https://www.googleapis.com/books/v1/volumes?q=${searchTerm}&key=${apiKey}`;
