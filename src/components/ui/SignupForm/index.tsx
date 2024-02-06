@@ -6,17 +6,17 @@ import React, { FormEvent, useState } from 'react';
 
 import { useAuth } from '../../../lib/firebase/authService';
 
-const LoginForm = () => {
-  const { loginWithEmailAndPassword } = useAuth();
+const SignupForm = () => {
+  const { signUpWithEmailAndPassword } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handlerLogin = async (e: FormEvent<HTMLFormElement>) => {
+  const handlerSignupForm = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {
-      await loginWithEmailAndPassword(email, password);
-      console.log('sucesso login!');
+      await signUpWithEmailAndPassword(email, password);
+      console.log('sucesso cadastro!');
       redirect('/');
     } catch (error) {
       console.error(error.message);
@@ -25,8 +25,8 @@ const LoginForm = () => {
 
   return (
     <div className="max-w-md mx-auto mt-8 p-6 bg-white rounded-md shadow-md">
-      <h2 className="text-2xl font-semibold mb-4">Login</h2>
-      <form onSubmit={handlerLogin}>
+      <h2 className="text-2xl font-semibold mb-4">Cadastro</h2>
+      <form onSubmit={handlerSignupForm}>
         <div className="mb-4">
           <label
             htmlFor="email"
@@ -40,7 +40,7 @@ const LoginForm = () => {
             name="email"
             value={email}
             className="w-full p-2 border rounded-md"
-            placeholder="Digite seu nome de usuário"
+            placeholder="Escolha seu nome de usuário"
             onChange={(e) => setEmail(e.target.value)}
           />
         </div>
@@ -57,19 +57,19 @@ const LoginForm = () => {
             name="password"
             value={password}
             className="w-full p-2 border rounded-md"
-            placeholder="Digite sua senha"
+            placeholder="Escolha sua senha"
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
         <button
           type="submit"
-          className="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300"
+          className="w-full bg-green-500 text-white p-2 rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:border-green-300"
         >
-          Acessar
+          Cadastrar
         </button>
         <p className="mt-2">
-          Não tem cadastro?{' '}
-          <Link href="/signup" className="underline text-blue-600">
+          Já tem cadastro?{' '}
+          <Link href="/login" className="underline text-blue-600">
             Clique aqui.
           </Link>
         </p>
@@ -78,4 +78,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default SignupForm;

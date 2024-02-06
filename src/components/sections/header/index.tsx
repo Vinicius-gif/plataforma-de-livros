@@ -1,13 +1,15 @@
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 
 import { Button } from '@mui/material';
 
-import { Dialog, DialogContent, DialogTrigger } from '../../ui/dialog';
-import LoginForm from '../../ui/LoginForm';
+import { useAuth } from '../../../lib/firebase/authService';
 
 const Header = () => {
+  const { user, logout } = useAuth();
   return (
     <header>
       <nav className="w-full flex justify-around items-center">
@@ -22,19 +24,34 @@ const Header = () => {
         <div className="flex items-center gap-5 [&>a]:text-lg [&>a]:font-semibold">
           <Link href="/">Home</Link>
           <Link href="/about">About</Link>
-          <Dialog>
-            <DialogTrigger asChild>
-              <Button
-                variant="outlined"
-                className="border-2 text-lg font-semibold"
-              >
-                Login
-              </Button>
-            </DialogTrigger>
-            <DialogContent>
-              <LoginForm />
-            </DialogContent>
-          </Dialog>
+
+          <div>
+            {user ? (
+              <div>
+                <p>Email: {user.email}</p>
+                <Button onClick={logout}>Logout</Button>
+              </div>
+            ) : (
+              <div>
+                <Link href="/login">
+                  <Button
+                    variant="contained"
+                    className="border-2 text-lg font-medium bg-amber-500 hover:bg-amber-600 mx-1"
+                  >
+                    Login
+                  </Button>
+                </Link>
+                <Link href="/signup">
+                  <Button
+                    variant="contained"
+                    className="border-2 text-lg font-medium bg-amber-500 hover:bg-amber-600 mx-1"
+                  >
+                    Cadastrar
+                  </Button>
+                </Link>
+              </div>
+            )}
+          </div>
         </div>
       </nav>
     </header>
