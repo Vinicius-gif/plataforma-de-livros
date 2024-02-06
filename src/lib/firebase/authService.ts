@@ -1,20 +1,49 @@
+'use client';
+
+import { redirect } from 'next/navigation';
+import { useEffect, useState } from 'react';
+
 import {
   signInWithEmailAndPassword,
   signOut,
   onAuthStateChanged,
-  User
+  User,
+  createUserWithEmailAndPassword
 } from 'firebase/auth';
 
 import { auth } from './firebaseService';
 
-export async function Login(email: string, password: string) {
-  return signInWithEmailAndPassword(auth, email, password);
-}
+export function useAuth() {
+  const [user, setUser] = useState<User | null>(null);
 
-export async function Logout() {
-  return signOut(auth);
-}
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (authUser) => {
+      setUser(authUser);
+    });
 
-export function OnAuthChanged(callback: (user: User | null) => void) {
-  return onAuthStateChanged(auth, callback);
+    return () => unsubscribe();
+  }, []);
+
+  const loginWithEmailAndPassword = async (email: string, password: string) => {
+    await signInWithEmailAndPassword(auth, email, password);
+  };
+
+  const signUpWithEmailAndPassword = async (
+    email: string,
+    password: string
+  ) => {
+    await createUserWithEmailAndPassword(auth, email, password);
+  };
+
+  const logout = async () => {
+    await signOut(auth);
+    redirect('/');
+  };
+
+  return {
+    user,
+    loginWithEmailAndPassword,
+    signUpWithEmailAndPassword,
+    logout
+  };
 }
