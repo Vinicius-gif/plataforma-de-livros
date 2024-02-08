@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { redirect } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import React, { FormEvent, useState } from 'react';
 
 import { useAuth } from '../../../lib/firebase/authService';
@@ -10,6 +10,7 @@ const LoginForm = () => {
   const { loginWithEmailAndPassword } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const router = useRouter();
 
   const handlerLogin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -17,7 +18,7 @@ const LoginForm = () => {
     try {
       await loginWithEmailAndPassword(email, password);
       console.log('sucesso login!');
-      redirect('/');
+      router.push('/');
     } catch (error) {
       console.error(error.message);
     }

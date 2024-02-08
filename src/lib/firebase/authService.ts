@@ -1,6 +1,6 @@
 'use client';
 
-import { redirect } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 import {
@@ -15,6 +15,7 @@ import { auth } from './firebaseService';
 
 export function useAuth() {
   const [user, setUser] = useState<User | null>(null);
+  const router = useRouter();
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (authUser) => {
@@ -37,7 +38,7 @@ export function useAuth() {
 
   const logout = async () => {
     await signOut(auth);
-    redirect('/');
+    router.push('/');
   };
 
   return {

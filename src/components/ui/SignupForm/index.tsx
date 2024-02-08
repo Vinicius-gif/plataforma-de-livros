@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { redirect } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import React, { FormEvent, useState } from 'react';
 
 import { useAuth } from '../../../lib/firebase/authService';
@@ -10,6 +10,7 @@ const SignupForm = () => {
   const { signUpWithEmailAndPassword } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const router = useRouter();
 
   const handlerSignupForm = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -17,7 +18,7 @@ const SignupForm = () => {
     try {
       await signUpWithEmailAndPassword(email, password);
       console.log('sucesso cadastro!');
-      redirect('/');
+      router.push('/');
     } catch (error) {
       console.error(error.message);
     }
