@@ -1,14 +1,14 @@
-'use client';
+import React from 'react';
 
-import React, { useContext } from 'react';
-
-import { BookContext } from '../../../contexts/BookContext';
+import { Book } from '../../../@types/BookContextTypes';
 import BookCard from '../../ui/BookCard';
 import LoadingSkeleton from '../../ui/LoadingSkeleton';
+interface ListBooksProps {
+  dataBooks: Book[];
+  isLoading?: boolean;
+}
 
-const ListBooks = () => {
-  const { dataBooks, isLoading } = useContext(BookContext);
-
+const ListBooks = ({ dataBooks, isLoading }: ListBooksProps) => {
   return (
     <section className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
       {isLoading ? (
@@ -19,16 +19,23 @@ const ListBooks = () => {
         dataBooks.map((book) => (
           <BookCard
             key={book.id}
+            id={book.id}
             title={book.volumeInfo?.title}
-            author={book.volumeInfo.authors?.join(', ')}
-            firstEditionYear={book.volumeInfo?.publisher}
+            authors={
+              book.volumeInfo.authors?.join(', ') || 'Autor Desconhecido'
+            }
+            publisher={book.volumeInfo?.publisher || 'Indefinido'}
             image={book.volumeInfo.imageLinks?.thumbnail}
-            totalEditions={book.volumeInfo?.pageCount}
+            pageCount={
+              book.volumeInfo?.pageCount ? book.volumeInfo.pageCount : 0
+            }
             description={book.volumeInfo?.description}
           />
         ))
       ) : (
-        <p>Nenhum livro encontrado.</p>
+        <div className="col-span-full flex justify-center items-center h-full my-10">
+          <p className="text-2xl font-bold">Nenhum livro encontrado :(</p>
+        </div>
       )}
     </section>
   );
