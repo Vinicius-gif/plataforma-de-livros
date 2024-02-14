@@ -1,11 +1,11 @@
 import Banner from '../components/sections/banner';
-import ListBooks from '../components/sections/listBooks';
+import ListBooksHome from '../components/sections/listBooksHome';
 
 export default function Home() {
   return (
     <main>
       <Banner />
-      <ListBooks />
+      <ListBooksHome />
     </main>
   );
 }
