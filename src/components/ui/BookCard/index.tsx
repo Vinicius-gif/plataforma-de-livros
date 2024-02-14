@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import React from 'react';
 
+import { BookProps } from '../../../@types/BookContextTypes';
 import {
   Dialog,
   DialogContent,
@@ -8,25 +9,14 @@ import {
   DialogTitle,
   DialogTrigger
 } from '../dialog';
-interface Props {
-  image: string;
-  title: string;
-  author: string;
-  totalEditions: number;
-  firstEditionYear: string;
-  description: string;
-}
+import FavoriteButton from './FavoriteButton';
 
-const BookCard = ({
-  image,
-  title,
-  author,
-  totalEditions,
-  firstEditionYear,
-  description
-}: Props) => {
+const BookCard = (props: BookProps) => {
+  const { id, image, title, authors, pageCount, publisher, description } =
+    props;
   return (
-    <div className="grid grid-cols-1 content-center justify-items-center h-[450px] max-w-72 w-80 mx-auto my-4 rounded overflow-hidden shadow-lg hover:shadow-xl transition duration-300">
+    <div className="relative grid grid-cols-1 content-center justify-items-center h-[450px] max-w-72 w-80 mx-auto my-4 rounded overflow-hidden shadow-lg hover:shadow-xl transition duration-300">
+      <FavoriteButton key={id} {...props} />
       {image ? (
         <img className="w-32 h-40" src={image} alt={title} />
       ) : (
@@ -35,12 +25,14 @@ const BookCard = ({
 
       <div className="px-4 py-3 text-center">
         <h2 className="font-bold text-lg mb-2">{title}</h2>
-        <p className="text-gray-700 text-sm mb-2">Author: {author}</p>
         <p className="text-gray-700 text-sm mb-2">
-          Total Editions: {totalEditions}
+          Author: {authors ? authors : 'Indefinido'}
+        </p>
+        <p className="text-gray-700 text-sm mb-2">
+          Total de paginas: {pageCount ? pageCount : 'Indefinido'}
         </p>
         <p className="text-gray-700 text-sm">
-          First Edition Year: {firstEditionYear}
+          Editora: {publisher ? publisher : 'Indefinido'}
         </p>
 
         <Dialog>
