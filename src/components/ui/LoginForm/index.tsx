@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
 import Link from 'next/link';
@@ -19,7 +20,7 @@ const LoginForm = () => {
       await loginWithEmailAndPassword(email, password);
       console.log('sucesso login!');
       router.push('/');
-    } catch (error) {
+    } catch (error: any) {
       console.error(error.message);
     }
   };
