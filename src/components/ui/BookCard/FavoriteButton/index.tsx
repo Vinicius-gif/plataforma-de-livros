@@ -13,7 +13,7 @@ const FavoriteButton = ({ ...bookData }: BookProps) => {
   return (
     <div
       className="absolute top-0 right-0 mt-4 mr-4 cursor-pointer"
-      onClick={() => addFavoriteBook(user.uid, bookData)}
+      onClick={() => user && addFavoriteBook(user.uid, bookData)}
     >
       <MdFavoriteBorder className="size-8" />
     </div>
