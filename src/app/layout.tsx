@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { Roboto } from 'next/font/google';
 
 import './globals.css';
-import Header from '../components/sections/header';
+import NavBar from '../components/sections/navbar';
 import { BookContextProvider } from '../contexts/BookContext';
 
 const roboto = Roboto({
@@ -26,7 +26,7 @@ export default function RootLayout({
     <html lang="en" data-lt-installed={true}>
       <body className={roboto.className}>
         <BookContextProvider>
-          <Header />
+          <NavBar />
           {children}
         </BookContextProvider>
       </body>
