@@ -1,5 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
+import { useRouter } from 'next/navigation';
 import React, { useState, useEffect } from 'react';
 import { MdFavoriteBorder, MdFavorite } from 'react-icons/md';
 
@@ -7,13 +9,14 @@ import { BookProps } from '../../../../@types/BookContextTypes';
 import { useAuth } from '../../../../lib/firebase/authService';
 import {
   addFavoriteBook,
-  removeFavoriteBook,
-  isBookFavorited
+  isBookFavorited,
+  removeFavoriteBook
 } from '../../../../lib/firebase/fireStoreService';
 
 const FavoriteButton = ({ ...bookData }: BookProps) => {
   const [favorited, setFavorited] = useState(false);
   const { user } = useAuth();
+  const router = useRouter();
 
   useEffect(() => {
     const checkIfFavorited = async () => {
@@ -28,9 +31,11 @@ const FavoriteButton = ({ ...bookData }: BookProps) => {
   const handleButton = () => {
     if (user) {
       favorited
-        ? removeFavoriteBook(user.uid, bookData.id)
-        : addFavoriteBook(user.uid, bookData);
+        ? removeFavoriteBook(user.uid, bookData.id, router)
+        : addFavoriteBook(user.uid, bookData, router);
       setFavorited(!favorited);
+    } else {
+      router.push('/login');
     }
   };
 

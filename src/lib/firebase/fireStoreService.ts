@@ -1,4 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
+
 import {
   collection,
   doc,
@@ -33,17 +35,26 @@ export const getFavoriteBooks = async (
   }
 };
 
-export const addFavoriteBook = async (userId: string, bookData: BookProps) => {
+export const addFavoriteBook = async (
+  userId: string,
+  bookData: BookProps,
+  router: AppRouterInstance
+) => {
   try {
     const userRef = doc(collection(db, 'users'), userId);
     await addDoc(collection(userRef, 'favoriteBooks'), bookData);
-    alert('Book added to favorites successfully!');
+    router.refresh();
+    // alert('Book added to favorites successfully!');
   } catch (error: any) {
     console.error('Error adding book to favorites: ', error);
   }
 };
 
-export const removeFavoriteBook = async (userId: string, bookId: string) => {
+export const removeFavoriteBook = async (
+  userId: string,
+  bookId: string,
+  router: AppRouterInstance
+) => {
   try {
     const userRef = doc(collection(db, 'users'), userId);
     const querySnapshot = await getDocs(
@@ -52,7 +63,7 @@ export const removeFavoriteBook = async (userId: string, bookId: string) => {
 
     querySnapshot.forEach(async (doc) => {
       await deleteDoc(doc.ref);
-      alert('Book removed from favorites successfully!');
+      router.refresh();
     });
   } catch (error: any) {
     console.error('Error removing book from favorites: ', error);
