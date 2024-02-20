@@ -12,11 +12,10 @@ import {
 import FavoriteButton from './FavoriteButton';
 
 const BookCard = (props: BookProps) => {
-  const { id, image, title, authors, pageCount, publisher, description } =
-    props;
+  const { image, title, authors, pageCount, publisher, description } = props;
   return (
     <div className="relative grid grid-cols-1 content-center justify-items-center h-[450px] max-w-72 w-80 mx-auto my-4 rounded overflow-hidden shadow-lg hover:shadow-xl transition duration-300">
-      <FavoriteButton key={id} {...props} />
+      <FavoriteButton {...props} />
       {image ? (
         <img className="w-32 h-40" src={image} alt={title} />
       ) : (
