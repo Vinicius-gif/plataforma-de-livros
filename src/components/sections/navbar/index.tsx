@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import * as React from 'react';
 
-import AutoStoriesIcon from '@mui/icons-material/AutoStories';
+import { AccountCircle, AutoStories } from '@mui/icons-material';
 import MenuIcon from '@mui/icons-material/Menu';
 import AppBar from '@mui/material/AppBar';
 import Avatar from '@mui/material/Avatar';
@@ -57,7 +57,7 @@ function NavBar() {
     <AppBar position="static" color="transparent">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AutoStoriesIcon
+          <AutoStories
             sx={{ display: { xs: 'none', md: 'flex' }, mr: 1, fontSize: 60 }}
             className="text-amber-700"
           />
@@ -123,7 +123,7 @@ function NavBar() {
               ))}
             </Menu>
           </Box>
-          <AutoStoriesIcon
+          <AutoStories
             sx={{ display: { xs: 'flex', md: 'none' }, mr: 1, fontSize: 40 }}
             className="text-amber-700"
           />
@@ -173,7 +173,7 @@ function NavBar() {
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                  <Avatar alt={user.email} src="/static/images/avatar/2.jpg" />
                 </IconButton>
               </Tooltip>
               <Menu
@@ -215,7 +215,8 @@ function NavBar() {
                 variant="contained"
                 className="normal-case border-2 text-lg font-medium bg-amber-500 hover:bg-amber-600 mx-1"
               >
-                Sign In
+                <AccountCircle sx={{ fontSize: 30 }} className="mx-1" />
+                Login
               </Button>
             </Link>
           )}

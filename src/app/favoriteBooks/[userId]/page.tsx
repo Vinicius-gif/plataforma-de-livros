@@ -8,7 +8,9 @@ const FavoriteBooks = async ({ params }: { params: { userId: string } }) => {
 
   return (
     <div>
-      <h2>Favorite Books:</h2>
+      <h2 className="text-center font-bold text-3xl my-8 underline">
+        Seus livros favoritos
+      </h2>
       <section className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {favoriteBooks.length ? (
           favoriteBooks.map((book) => (
