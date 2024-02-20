@@ -45,7 +45,7 @@ const FavoriteButton = ({ ...bookData }: BookProps) => {
       onClick={handleButton}
     >
       {favorited ? (
-        <MdFavorite className="size-8" />
+        <MdFavorite className="size-8 text-red-400" />
       ) : (
         <MdFavoriteBorder className="size-8" />
       )}

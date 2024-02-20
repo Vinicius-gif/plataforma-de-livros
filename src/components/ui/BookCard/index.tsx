@@ -46,7 +46,10 @@ const BookCard = (props: BookProps) => {
               <h2 className="font-bold text-2xl mb-2 text-center underline">
                 {title}
               </h2>
-              <p className="font-medium">{description}</p>
+              <p className="font-medium">{`${description.substring(
+                0,
+                500
+              )}...`}</p>
             </DialogHeader>
           </DialogContent>
         </Dialog>

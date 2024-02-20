@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import * as React from 'react';
 
-import { AccountCircle, AutoStories } from '@mui/icons-material';
+import { AccountCircle, AutoStories, Home, Info } from '@mui/icons-material';
 import MenuIcon from '@mui/icons-material/Menu';
 import AppBar from '@mui/material/AppBar';
 import Avatar from '@mui/material/Avatar';
@@ -20,8 +20,12 @@ import Typography from '@mui/material/Typography';
 import { useAuth } from '../../../lib/firebase/authService';
 
 const pages = [
-  { name: 'Home', route: '/' },
-  { name: 'About', route: '/about' }
+  { name: 'Home', route: '/', icon: <Home className="text-amber-600 mx-1" /> },
+  {
+    name: 'About',
+    route: '/about',
+    icon: <Info className="text-amber-600 mx-1" />
+  }
 ];
 
 function NavBar() {
@@ -161,8 +165,9 @@ function NavBar() {
               >
                 <Button
                   sx={{ my: 2, color: 'black', display: 'block' }}
-                  className="text-base font-semibold"
+                  className="text-base font-semibold hover:underline"
                 >
+                  {page.icon}
                   {page.name}
                 </Button>
               </Link>
@@ -170,45 +175,54 @@ function NavBar() {
           </Box>
 
           {user ? (
-            <Box sx={{ flexGrow: 0 }}>
-              <Tooltip title="Open settings">
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt={user.email} src="/static/images/avatar/2.jpg" />
-                </IconButton>
-              </Tooltip>
-              <Menu
-                sx={{ mt: '45px' }}
-                id="menu-appbar"
-                anchorEl={anchorElUser}
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right'
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right'
-                }}
-                open={Boolean(anchorElUser)}
-                onClose={handleCloseUserMenu}
-              >
-                {settings.map((setting) => (
-                  <Link
-                    key={setting.name}
-                    href={user && user.uid ? setting.route : '/login'}
-                    onClick={handleCloseUserMenu}
-                  >
-                    <MenuItem>
-                      <Typography textAlign="center">{setting.name}</Typography>
-                    </MenuItem>
-                  </Link>
-                ))}
-                <p>User:{user.email}</p>
-                <MenuItem onClick={logout}>
-                  <Typography textAlign="center">Sair</Typography>
-                </MenuItem>
-              </Menu>
-            </Box>
+            <>
+              <Box sx={{ flexGrow: 0 }}>
+                <Tooltip title="Open settings">
+                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                    <Avatar alt="User" src="/static/images/avatar/2.jpg" />
+                  </IconButton>
+                </Tooltip>
+                <Menu
+                  sx={{ mt: '45px' }}
+                  id="menu-appbar"
+                  anchorEl={anchorElUser}
+                  anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right'
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right'
+                  }}
+                  open={Boolean(anchorElUser)}
+                  onClose={handleCloseUserMenu}
+                >
+                  <p className="text-gray-700 font-bold mx-1 lg:hidden">
+                    User: {user.email}
+                  </p>
+                  {settings.map((setting) => (
+                    <Link
+                      key={setting.name}
+                      href={user && user.uid ? setting.route : '/login'}
+                      onClick={handleCloseUserMenu}
+                    >
+                      <MenuItem>
+                        <Typography textAlign="center">
+                          {setting.name}
+                        </Typography>
+                      </MenuItem>
+                    </Link>
+                  ))}
+                  <MenuItem onClick={logout}>
+                    <Typography textAlign="center">Sair</Typography>
+                  </MenuItem>
+                </Menu>
+              </Box>
+              <p className="text-gray-700 font-bold mx-1 hidden lg:flex">
+                User: {user.email}
+              </p>
+            </>
           ) : (
             <Link href="/login">
               <Button
