@@ -37,7 +37,10 @@ const ListBooks = ({ dataBooks, isLoading }: ListBooksProps) => {
                 pageCount={
                   book.volumeInfo?.pageCount ? book.volumeInfo.pageCount : 0
                 }
-                description={book.volumeInfo?.description}
+                description={
+                  book.volumeInfo?.description ||
+                  'Nenhuma descrição informada :('
+                }
               />
             ))}
           </div>

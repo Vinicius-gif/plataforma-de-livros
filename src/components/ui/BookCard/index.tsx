@@ -24,15 +24,11 @@ const BookCard = (props: BookProps) => {
 
       <div className="px-4 py-3 text-center">
         <h2 className="font-bold text-lg mb-2">{title}</h2>
+        <p className="text-gray-700 text-sm mb-2">Author: {authors}</p>
         <p className="text-gray-700 text-sm mb-2">
-          Author: {authors ? authors : 'Indefinido'}
+          Total de paginas: {pageCount}
         </p>
-        <p className="text-gray-700 text-sm mb-2">
-          Total de paginas: {pageCount ? pageCount : 'Indefinido'}
-        </p>
-        <p className="text-gray-700 text-sm">
-          Editora: {publisher ? publisher : 'Indefinido'}
-        </p>
+        <p className="text-gray-700 text-sm">Editora: {publisher}</p>
 
         <Dialog>
           <DialogTrigger asChild>
