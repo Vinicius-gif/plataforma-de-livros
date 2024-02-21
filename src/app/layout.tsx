@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Roboto } from 'next/font/google';
 
 import './globals.css';
+import FooterNav from '../components/sections/footer';
 import NavBar from '../components/sections/navbar';
 import { BookContextProvider } from '../contexts/BookContext';
 
@@ -28,6 +29,7 @@ export default function RootLayout({
         <BookContextProvider>
           <NavBar />
           {children}
+          <FooterNav />
         </BookContextProvider>
       </body>
     </html>
