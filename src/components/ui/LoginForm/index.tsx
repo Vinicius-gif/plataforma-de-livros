@@ -3,21 +3,36 @@
 
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import React, { FormEvent, useState } from 'react';
+import React from 'react';
+import { useForm } from 'react-hook-form';
+
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
 
 import { useAuth } from '../../../lib/firebase/authService';
 
+const loginFormSchema = z.object({
+  email: z.string().email(),
+  password: z.string().min(6)
+});
+
+type LoginFormSchema = z.infer<typeof loginFormSchema>;
+
 const LoginForm = () => {
   const { loginWithEmailAndPassword } = useAuth();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const router = useRouter();
 
-  const handlerLogin = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors }
+  } = useForm<LoginFormSchema>({
+    resolver: zodResolver(loginFormSchema)
+  });
 
+  const handlerLogin = async (data: LoginFormSchema) => {
     try {
-      await loginWithEmailAndPassword(email, password);
+      await loginWithEmailAndPassword(data.email, data.password);
       console.log('sucesso login!');
       router.push('/');
     } catch (error: any) {
@@ -28,7 +43,7 @@ const LoginForm = () => {
   return (
     <div className="max-w-md mx-auto mt-8 p-6 bg-white rounded-md shadow-md">
       <h2 className="text-2xl font-semibold mb-4">Login</h2>
-      <form onSubmit={handlerLogin}>
+      <form onSubmit={handleSubmit(handlerLogin)}>
         <div className="mb-4">
           <label
             htmlFor="email"
@@ -39,12 +54,13 @@ const LoginForm = () => {
           <input
             type="email"
             id="email"
-            name="email"
-            value={email}
-            className="w-full p-2 border rounded-md"
+            {...register('email')}
+            className="w-full p-2 border rounded-md "
             placeholder="Digite seu nome de usuário"
-            onChange={(e) => setEmail(e.target.value)}
           />
+          {errors.email && (
+            <p className="text-red-500 text-sm">{errors.email.message}</p>
+          )}
         </div>
         <div className="mb-4">
           <label
@@ -56,12 +72,13 @@ const LoginForm = () => {
           <input
             type="password"
             id="password"
-            name="password"
-            value={password}
+            {...register('password')}
             className="w-full p-2 border rounded-md"
             placeholder="Digite sua senha"
-            onChange={(e) => setPassword(e.target.value)}
           />
+          {errors.password && (
+            <p className="text-red-500 text-sm">{errors.password.message}</p>
+          )}
         </div>
         <button
           type="submit"

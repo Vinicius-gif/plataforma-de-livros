@@ -3,21 +3,43 @@
 
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import React, { FormEvent, useState } from 'react';
+import React from 'react';
+import { useForm } from 'react-hook-form';
+
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
 
 import { useAuth } from '../../../lib/firebase/authService';
 
+const signUpFormSchema = z.object({
+  email: z.string().email(),
+  password: z.string().min(6),
+  confirmPassword: z
+    .string()
+    .min(6)
+    .refine((data) => data.password === data.confirmPassword, {
+      message: 'As senhas não coincidem',
+      path: ['confirmPassword']
+    })
+});
+
+type SignUpFormSchema = z.infer<typeof signUpFormSchema>;
+
 const SignupForm = () => {
   const { signUpWithEmailAndPassword } = useAuth();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const router = useRouter();
 
-  const handlerSignupForm = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors }
+  } = useForm<SignUpFormSchema>({
+    resolver: zodResolver(signUpFormSchema)
+  });
 
+  const handlerSignupForm = async (data: SignUpFormSchema) => {
     try {
-      await signUpWithEmailAndPassword(email, password);
+      await signUpWithEmailAndPassword(data.email, data.password);
       console.log('sucesso cadastro!');
       router.push('/');
     } catch (error: any) {
@@ -28,23 +50,24 @@ const SignupForm = () => {
   return (
     <div className="max-w-md mx-auto mt-8 p-6 bg-white rounded-md shadow-md">
       <h2 className="text-2xl font-semibold mb-4">Cadastro</h2>
-      <form onSubmit={handlerSignupForm}>
+      <form onSubmit={handleSubmit(handlerSignupForm)}>
         <div className="mb-4">
           <label
             htmlFor="email"
             className="block text-gray-600 text-sm font-medium mb-2"
           >
-            email:
+            Email:
           </label>
           <input
             type="email"
             id="email"
-            name="email"
-            value={email}
+            {...register('email')}
             className="w-full p-2 border rounded-md"
             placeholder="Escolha seu nome de usuário"
-            onChange={(e) => setEmail(e.target.value)}
           />
+          {errors.email && (
+            <p className="text-red-500 text-sm">{errors.email.message}</p>
+          )}
         </div>
         <div className="mb-4">
           <label
@@ -56,12 +79,33 @@ const SignupForm = () => {
           <input
             type="password"
             id="password"
-            name="password"
-            value={password}
+            {...register('password')}
             className="w-full p-2 border rounded-md"
             placeholder="Escolha sua senha"
-            onChange={(e) => setPassword(e.target.value)}
           />
+          {errors.password && (
+            <p className="text-red-500 text-sm">{errors.password.message}</p>
+          )}
+        </div>
+        <div className="mb-4">
+          <label
+            htmlFor="confirmPassword"
+            className="block text-gray-600 text-sm font-medium mb-2"
+          >
+            Confirmar senha:
+          </label>
+          <input
+            type="password"
+            id="confirmPassword"
+            {...register('confirmPassword')}
+            className="w-full p-2 border rounded-md"
+            placeholder="Confirme sua senha"
+          />
+          {errors.confirmPassword && (
+            <p className="text-red-500 text-sm">
+              {errors.confirmPassword.message}
+            </p>
+          )}
         </div>
         <button
           type="submit"
