@@ -11,17 +11,16 @@ import { z } from 'zod';
 
 import { useAuth } from '../../../lib/firebase/authService';
 
-const signUpFormSchema = z.object({
-  email: z.string().email(),
-  password: z.string().min(6),
-  confirmPassword: z
-    .string()
-    .min(6)
-    .refine((data) => data.password === data.confirmPassword, {
-      message: 'As senhas não coincidem',
-      path: ['confirmPassword']
-    })
-});
+const signUpFormSchema = z
+  .object({
+    email: z.string().email(),
+    password: z.string().min(6),
+    confirmPassword: z.string().min(6)
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: 'As senhas não coicindem',
+    path: ['confirmPassword']
+  });
 
 type SignUpFormSchema = z.infer<typeof signUpFormSchema>;
 

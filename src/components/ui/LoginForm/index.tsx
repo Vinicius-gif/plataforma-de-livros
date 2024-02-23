@@ -12,7 +12,10 @@ import { z } from 'zod';
 import { useAuth } from '../../../lib/firebase/authService';
 
 const loginFormSchema = z.object({
-  email: z.string().email(),
+  email: z
+    .string()
+    .nonempty('Campo de e-mail é obrigatório.')
+    .email('Formato de e-mail e inválido.'),
   password: z.string().min(6)
 });
 
@@ -21,7 +24,7 @@ type LoginFormSchema = z.infer<typeof loginFormSchema>;
 const LoginForm = () => {
   const { loginWithEmailAndPassword } = useAuth();
   const router = useRouter();
-
+  const [errorMessage, setErrorMessage] = React.useState(null);
   const {
     register,
     handleSubmit,
@@ -37,6 +40,14 @@ const LoginForm = () => {
       router.push('/');
     } catch (error: any) {
       console.error(error.message);
+      if (error.code === 'auth/invalid-credential') {
+        setErrorMessage(
+          'Credenciais inválidas. Por favor, verifique seu e-mail e senha.'
+        );
+        errors.password.message =
+          'Credenciais inválidas. Por favor, verifique seu e-mail e senha.';
+        console.error('Erro de autenticação:', error.message);
+      }
     }
   };
 
@@ -55,7 +66,10 @@ const LoginForm = () => {
             type="email"
             id="email"
             {...register('email')}
-            className="w-full p-2 border rounded-md "
+            // eslint-disable-next-line quotes
+            className={`w-full p-2 border rounded-md ${
+              errors.email && 'border-red-500'
+            }`}
             placeholder="Digite seu nome de usuário"
           />
           {errors.email && (
@@ -73,13 +87,20 @@ const LoginForm = () => {
             type="password"
             id="password"
             {...register('password')}
-            className="w-full p-2 border rounded-md"
+            className={`w-full p-2 border rounded-md ${
+              errors.password && 'border-red-500'
+            }`}
             placeholder="Digite sua senha"
           />
           {errors.password && (
             <p className="text-red-500 text-sm">{errors.password.message}</p>
           )}
         </div>
+        {errorMessage && (
+          <div>
+            <p className="text-red-500 text-sm m-2">{errorMessage}</p>
+          </div>
+        )}
         <button
           type="submit"
           className="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300"
