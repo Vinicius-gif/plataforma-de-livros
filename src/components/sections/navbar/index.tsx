@@ -120,6 +120,7 @@ function NavBar() {
                       textAlign="center"
                       className="text-lg font-bold"
                     >
+                      {page.icon}
                       {page.name}
                     </Typography>
                   </MenuItem>
@@ -228,10 +229,15 @@ function NavBar() {
               <Button
                 variant="contained"
                 className="normal-case border-2 text-lg font-medium bg-amber-500 hover:bg-amber-600 mx-1"
+                sx={{ display: { xs: 'none', md: 'flex' } }}
               >
                 <AccountCircle sx={{ fontSize: 30 }} className="mx-1" />
                 Login
               </Button>
+              <AccountCircle
+                sx={{ display: { xs: 'flex', md: 'none' }, fontSize: 40 }}
+                className="mx-1 text-amber-500"
+              />
             </Link>
           )}
         </Toolbar>
