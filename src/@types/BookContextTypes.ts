@@ -9,6 +9,7 @@ export interface Book {
     pageCount: number;
     categories: string[];
     maturityRating: string;
+    infoLink: string;
     imageLinks: {
       smallThumbnail: string;
       thumbnail: string;
@@ -23,4 +24,5 @@ export interface BookProps {
   pageCount?: number | undefined;
   publisher?: string | undefined;
   description?: string | undefined;
+  infoLink?: string | undefined;
 }

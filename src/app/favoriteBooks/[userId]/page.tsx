@@ -23,10 +23,13 @@ const FavoriteBooks = async ({ params }: { params: { userId: string } }) => {
               image={book.image}
               pageCount={book.pageCount || 0}
               description={book.description}
+              infoLink={book.infoLink}
             />
           ))
         ) : (
-          <p>Nenhum livro encontrado.</p>
+          <div className="col-span-full flex justify-center items-center h-full my-10">
+            <p className="text-2xl font-bold">Nenhum livro encontrado.</p>
+          </div>
         )}
       </section>
     </div>

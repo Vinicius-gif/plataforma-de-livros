@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+import Link from 'next/link';
 import React from 'react';
 
 import { BookProps } from '../../../@types/BookContextTypes';
@@ -12,7 +13,8 @@ import {
 import FavoriteButton from './FavoriteButton';
 
 const BookCard = (props: BookProps) => {
-  const { image, title, authors, pageCount, publisher, description } = props;
+  const { image, title, authors, pageCount, publisher, description, infoLink } =
+    props;
   return (
     <div className="relative grid grid-cols-1 content-center justify-items-center h-[450px] max-w-72 w-80 mx-auto my-4 rounded overflow-hidden shadow-lg hover:shadow-xl transition duration-300">
       <FavoriteButton {...props} />
@@ -29,6 +31,11 @@ const BookCard = (props: BookProps) => {
           Total de paginas: {pageCount}
         </p>
         <p className="text-gray-700 text-sm">Editora: {publisher}</p>
+        <Link href={infoLink} target="_blank">
+          <button className="bg-amber-500 text-white py-2 px-3 mt-3 hover:bg-amber-600 mr-2">
+            Ler agora
+          </button>
+        </Link>
 
         <Dialog>
           <DialogTrigger asChild>
@@ -46,10 +53,11 @@ const BookCard = (props: BookProps) => {
               <h2 className="font-bold text-2xl mb-2 text-center underline">
                 {title}
               </h2>
-              <p className="font-medium">{`${description.substring(
-                0,
-                500
-              )}...`}</p>
+              <p className="font-medium">
+                {description
+                  ? `${description.substring(0, 500)}...`
+                  : 'Nenhuma descrição foi informada :('}
+              </p>
             </DialogHeader>
           </DialogContent>
         </Dialog>

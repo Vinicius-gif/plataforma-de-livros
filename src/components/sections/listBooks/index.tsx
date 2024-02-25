@@ -33,7 +33,7 @@ const ListBooks = ({ dataBooks, isLoading }: ListBooksProps) => {
                   book.volumeInfo.authors?.join(', ') || 'Autor Desconhecido'
                 }
                 publisher={book.volumeInfo?.publisher || 'Indefinido'}
-                image={book.volumeInfo.imageLinks?.thumbnail}
+                image={book.volumeInfo.imageLinks?.thumbnail || ''}
                 pageCount={
                   book.volumeInfo?.pageCount ? book.volumeInfo.pageCount : 0
                 }
@@ -41,6 +41,7 @@ const ListBooks = ({ dataBooks, isLoading }: ListBooksProps) => {
                   book.volumeInfo?.description ||
                   'Nenhuma descrição informada :('
                 }
+                infoLink={book.volumeInfo?.infoLink}
               />
             ))}
           </div>
