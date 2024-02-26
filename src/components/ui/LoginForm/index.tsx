@@ -24,7 +24,7 @@ type LoginFormSchema = z.infer<typeof loginFormSchema>;
 const LoginForm = () => {
   const { loginWithEmailAndPassword } = useAuth();
   const router = useRouter();
-  const [errorMessage, setErrorMessage] = React.useState(null);
+  const [errorMessage, setErrorMessage] = React.useState<string | null>(null);
   const {
     register,
     handleSubmit,
@@ -44,8 +44,6 @@ const LoginForm = () => {
         setErrorMessage(
           'Credenciais inválidas. Por favor, verifique seu e-mail e senha.'
         );
-        errors.password.message =
-          'Credenciais inválidas. Por favor, verifique seu e-mail e senha.';
         console.error('Erro de autenticação:', error.message);
       }
     }

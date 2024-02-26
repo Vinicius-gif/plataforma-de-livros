@@ -31,7 +31,7 @@ const BookCard = (props: BookProps) => {
           Total de paginas: {pageCount}
         </p>
         <p className="text-gray-700 text-sm">Editora: {publisher}</p>
-        <Link href={infoLink} target="_blank">
+        <Link href={infoLink ? infoLink : '/'} target="_blank">
           <button className="bg-amber-500 text-white py-2 px-3 mt-3 hover:bg-amber-600 mr-2">
             Ler agora
           </button>
