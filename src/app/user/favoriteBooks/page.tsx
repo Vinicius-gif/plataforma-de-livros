@@ -2,14 +2,13 @@
 
 import React, { useState, useEffect } from 'react';
 
-import { BookProps } from '../../../@types/BookContextTypes';
 import BookCard from '../../../components/ui/BookCard';
 import { useAuth } from '../../../lib/firebase/authService';
 import { getFavoriteBooks } from '../../../lib/firebase/fireStoreService';
 
 const FavoriteBooks = () => {
   const { user } = useAuth();
-  const [favoriteBooks, setFavoriteBooks] = useState<BookProps[]>([]);
+  const [favoriteBooks, setFavoriteBooks] = useState([]);
 
   useEffect(() => {
     const fetchFavoriteBooks = async () => {
