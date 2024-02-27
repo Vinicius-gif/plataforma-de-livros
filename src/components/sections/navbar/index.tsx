@@ -38,7 +38,9 @@ function NavBar() {
 
   const { user, logout } = useAuth();
 
-  const settings = [{ name: 'Meus favoritos', route: 'user/favoriteBooks' }];
+  const settings = [
+    { name: 'Meus favoritos', route: `/favoriteBooks/${user?.uid}` }
+  ];
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);

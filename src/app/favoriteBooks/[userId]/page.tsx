@@ -1,24 +1,10 @@
-'use client';
-
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
 import BookCard from '../../../components/ui/BookCard';
-import { useAuth } from '../../../lib/firebase/authService';
 import { getFavoriteBooks } from '../../../lib/firebase/fireStoreService';
 
-const FavoriteBooks = () => {
-  const { user } = useAuth();
-  const [favoriteBooks, setFavoriteBooks] = useState([]);
-
-  useEffect(() => {
-    const fetchFavoriteBooks = async () => {
-      if (user) {
-        const books = await getFavoriteBooks(user.uid);
-        setFavoriteBooks(books);
-      }
-    };
-    fetchFavoriteBooks();
-  }, [user]);
+const FavoriteBooks = async ({ params }: { params: { userId: string } }) => {
+  const favoriteBooks = await getFavoriteBooks(params.userId);
 
   return (
     <div>
