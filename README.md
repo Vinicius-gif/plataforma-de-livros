@@ -18,9 +18,7 @@ A aplicação obtém dados dos livros fornecidos pela API do Google Books. Além
 
 ## Layouts
 
-| ![Desktop Layout](public/screen-desktop.png) | ![Mobile Layout](public/mobile-screen.png) |
-|:--:|:--:|
-| *Desktop Layout* | *Mobile Layout* |
+![Desktop Layout](public/screen-desktop.png) 
 
 ## Construído com
 
