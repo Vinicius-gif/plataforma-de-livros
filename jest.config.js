@@ -24,6 +24,9 @@ const config = {
   coverageReporters: ['lcov', 'text', 'text-summary'],
   transform: {
     '^.+\\.tsx?$': 'ts-jest'
+  },
+  moduleNameMapper: {
+    '^@/(.*)$': '<rootDir>/src/$1'
   }
 };
 
