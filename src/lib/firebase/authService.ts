@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
 import { useRouter } from 'next/navigation';
@@ -8,7 +9,9 @@ import {
   signOut,
   onAuthStateChanged,
   User,
-  createUserWithEmailAndPassword
+  createUserWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup
 } from 'firebase/auth';
 
 import { auth } from './firebaseService';
@@ -36,6 +39,16 @@ export function useAuth() {
     await createUserWithEmailAndPassword(auth, email, password);
   };
 
+  const loginWithGoogle = async () => {
+    const provider = new GoogleAuthProvider();
+    try {
+      const result = await signInWithPopup(auth, provider);
+      setUser(result.user);
+    } catch (error: any) {
+      console.error(error.message);
+    }
+  };
+
   const logout = async () => {
     await signOut(auth);
     router.push('/login');
@@ -45,6 +58,7 @@ export function useAuth() {
     user,
     loginWithEmailAndPassword,
     signUpWithEmailAndPassword,
+    loginWithGoogle,
     logout
   };
 }

@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { FcGoogle } from 'react-icons/fc';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -22,7 +23,7 @@ const loginFormSchema = z.object({
 type LoginFormSchema = z.infer<typeof loginFormSchema>;
 
 const LoginForm = () => {
-  const { loginWithEmailAndPassword } = useAuth();
+  const { loginWithEmailAndPassword, loginWithGoogle } = useAuth();
   const router = useRouter();
   const [errorMessage, setErrorMessage] = React.useState<string | null>(null);
   const {
@@ -46,6 +47,16 @@ const LoginForm = () => {
         );
         console.error('Erro de autenticação:', error.message);
       }
+    }
+  };
+
+  const handleGoogleLogin = async () => {
+    try {
+      await loginWithGoogle();
+      console.log('sucesso login com Google!');
+      router.push('/');
+    } catch (error: any) {
+      console.error('Erro ao fazer login com o Google:', error.message);
     }
   };
 
@@ -104,6 +115,14 @@ const LoginForm = () => {
           className="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300"
         >
           Acessar
+        </button>
+        <button
+          type="button"
+          onClick={handleGoogleLogin}
+          className="flex items-center justify-center w-full mt-2 bg-white text-black p-2 rounded-md hover:bg-gray-200 focus:outline-none focus:ring focus:border-gray-300 border-2 border-black"
+        >
+          <FcGoogle style={{ marginRight: '0.5rem', fontSize: '1.5rem' }} />
+          <span>Login com Google</span>
         </button>
         <p className="mt-2">
           Não tem cadastro?{' '}
