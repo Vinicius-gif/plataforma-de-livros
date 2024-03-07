@@ -54,7 +54,7 @@ const LoginForm = () => {
     try {
       await loginWithGoogle();
       console.log('sucesso login com Google!');
-      // router.push('/');
+      router.push('/');
     } catch (error: any) {
       console.error('Erro ao fazer login com o Google:', error.message);
     }
